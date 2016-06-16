@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#res{
+		width:1050px;
+		}
+#mut{
+		width:1050px;
+		}
+#imgh,#imgh2,#imgh3,#imgh4,#imgh5,#imgh6,#imgh7,#imgh8{
+	width:0px;
+	height:0px;
+		}
+
+		</style>
+
+	<script type="text/javascript">
+		function mix(canv1,canv2){
+			canv1=document.getElementById('can')
+			var ctx = canv1.getContext('2d');
+			var imageData = ctx.getImageData(0, 0, canv1.width, canv1.height);
+			var pixels = imageData.data;
+			var l=pixels.length;
+			var con=l;
+
+			
+			for(i = 0; i<l; i+=4) {
+				if (pixels[i]<254 && (i+1)%4!=0){
+
+
+					var a=pixels[i]
+					 pixels[i]=pixels[i+2]+Math.round(pixels[i+2]%2)
+					 pixels[i+2]=pixels[i+1]+Math.round(pixels[i+1]%2)
+					 pixels[i+1]=a+Math.round(a%2)
+	
+					 
+				}
+				else if ( (i+1)%4!=0)
+				{
+					pixels[i]=0;
+				}			
+		}
+
+					
+			ctx.putImageData(imageData,0,0);
+
+			}	
+
+		function mix2(canv1,canv2){
+			canv1=document.getElementById('can')
+			var ctx = canv1.getContext('2d');
+			var imageData = ctx.getImageData(0, 0, canv1.width, canv1.height);
+			var pixels = imageData.data;
+			var l=pixels.length;
+			var con=l;
+
+
+
+			for(i = 0; i<l; i++) {
+				con++
+				if ((i+1)%4!=0){
+							pixels[i]++
+
+					}
+					if(pixels[i]>254){
+						pixels[i]=0
+					}
+					if(pixels[i]<1){
+						pixels[i]=255
+					}
+
+				}
+
+				ctx.putImageData(imageData,0,0);
+
+		}
+					
+		
+		
+	
+		
+		function run(){
+			runned=window.setInterval(function(){mix()}, 50);
+			runned2=window.setInterval(function(){mix2()}, 100);
+		}
+
+	</script>
+</head>
+<body>
+	<div id="canv">
+		<canvas id="can" width="500"  height ="500"></canvas>
+	</div>
+	<img src="images/img1.jpg" crossorigin='anonymous' id="imgh"></img>
+	
+	<script type="text/javascript">
+			var img = document.getElementById("imgh");
+			var ctx = document.getElementById('can').getContext('2d'); // get Canvas contex
+			img.onload = function(){
+			    ctx.drawImage(img, 0, 0); // x, y, width, height
+			    run();
+			}
+
+
+	</script>
+
+	
+</body>
+</html>

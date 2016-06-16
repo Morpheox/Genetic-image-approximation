@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#res{
+		width:1050px;
+		}
+#mut{
+		width:1050px;
+		}
+#imgh,#imgh2,#imgh3,#imgh4,#imgh5,#imgh6,#imgh7,#imgh8{
+	width:0px;
+	height:0px;
+		}
+
+		</style>
+
+	<script type="text/javascript">
+	var genArray= new Array();
+	var index=0;
+	var difpast=100000000000000000000;
+	var difnew=10000000000000000000000;
+	var grapx=0;
+	var grapy=0;
+
+		function compare(canv1,canv2){
+			var ctx = canv1.getContext('2d');
+			var imageData = ctx.getImageData(0, 0, canv1.width, canv1.height);
+			var pixels = imageData.data;
+			var ctx2 = canv2.getContext('2d');
+			var imageData2 = ctx2.getImageData(0, 0, canv2.width, canv2.height);
+			var pixels2 = imageData2.data;
+			var dif=0;
+			var l=pixels.length;
+			for(i = 0; i<l; i++) {
+			    dif+=Math.abs(pixels[i]-pixels2[i]);
+			}
+
+			return dif;
+			}
+
+		function genRnd(l){
+
+			var gen="";
+			for (i=0;i<l;i++) {
+
+				rnd=(Math.round(Math.random()*15)).toString(16);
+
+				gen+=rnd;
+			}
+			return gen;
+		}
+		function drawGen(gen){
+			l=gen.length;
+			var c=document.getElementById("can");
+			var ctx=c.getContext("2d");
+			ctx.globalAlpha=0.5;
+			ctx.clearRect(0, 0, 640, 640);
+			for (i=0;i<l;i+=24){
+				ind=parseInt("0x"+gen.charAt(i));
+				ind2=parseInt("0x"+gen.charAt(i+1));
+				ind3=parseInt("0x"+gen.charAt(i+2));
+				ind4=parseInt("0x"+gen.charAt(i+3));
+				ind5=parseInt("0x"+gen.charAt(i+4));
+				ind6=parseInt("0x"+gen.charAt(i+5));
+				ind7=parseInt("0x"+gen.charAt(i+6));
+				ind8=parseInt("0x"+gen.charAt(i+7));
+				ind9=parseInt("0x"+gen.charAt(i+8));
+				ind10=parseInt("0x"+gen.charAt(i+9));
+				ind11=parseInt("0x"+gen.charAt(i+10));
+				ind12=parseInt("0x"+gen.charAt(i+11));
+				ind13=parseInt("0x"+gen.charAt(i+12));
+				ind14=parseInt("0x"+gen.charAt(i+13));
+				ind15=parseInt("0x"+gen.charAt(i+14));
+				ind16=parseInt("0x"+gen.charAt(i+15));
+				ind17=parseInt("0x"+gen.charAt(i+16));
+				ind18=parseInt("0x"+gen.charAt(i+17));
+				ind19=parseInt("0x"+gen.charAt(i+18));
+				ind20=parseInt("0x"+gen.charAt(i+19));
+				ind21=parseInt("0x"+gen.charAt(i+20));
+				ind22=parseInt("0x"+gen.charAt(i+21));
+				ind23=parseInt("0x"+gen.charAt(i+22));
+				ind24=parseInt("0x"+gen.charAt(i+23));
+
+				ctx.beginPath();
+				ctx.strokeStyle="#"+gen.charAt(i+10)+gen.charAt(i+11)+gen.charAt(i+12)+gen.charAt(i+13)+gen.charAt(i+14)+gen.charAt(i+20);
+				ctx.fillStyle="#"+gen.charAt(i+10)+gen.charAt(i+11)+gen.charAt(i+12)+gen.charAt(i+13)+gen.charAt(i+14)+gen.charAt(i+20);
+				switch(ind){
+					case 1:
+					ctx.arc(ind2*32+ind3*2+ind17,ind4*32+ind5*2+ind18,ind6*5,0,2*Math.PI);
+					if (ind6<8){ctx.stroke();} else {ctx.fill();}
+					
+					;break;
+					case 2:
+					ctx.moveTo(ind2*32+ind3*2+ind17,ind4*32+ind5*2+ind18);
+					ctx.lineTo(ind6*32+ind7*2+ind19,ind8*32+ind9*2+ind20);
+					if (ind10<8){ctx.stroke();} else {ctx.fill();}
+					
+					;break;
+					case 3:
+					ctx.rect(ind2*32+ind3*2+ind17,ind4*32+ind5*2+ind18,ind6*16+ind7,ind8*16+ind9);
+					if (ind10<8){ctx.stroke();} else {ctx.fill();}
+					
+					;break;
+					case 4:case 6:case 7:case 8: ctx.beginPath();
+						    ctx.moveTo(ind2*32+ind3*2+ind17,ind4*32+ind5*2+ind18);
+	    					ctx.lineTo(ind6*32+ind7*2,ind8*32+ind9*2);
+	   						ctx.lineTo(ind10*32+ind16*2,ind20*32+ind19*2);
+	   						if (ind10<8){ctx.stroke();} else {ctx.fill();}
+	   						;break;
+	   				case 8:break;
+	   				case 9:break;
+					case 10:
+					ctx.arc(ind2*32+ind3*2+ind17,ind4*32+ind5*2+ind18,ind6*5,0,2*Math.PI);
+					if (ind6<8){ctx.stroke();} else {ctx.fill();}
+					
+					;break;
+				}
+				ctx.closePath();
+			
+
+			}
+
+
+		}
+		function mutate(gen,rate){
+			l=gen.length;
+			gen2="";
+			for (i=0;i<l;i++){
+				var ind=parseInt("0x"+gen.charAt(i));
+				if (Math.random()*100<100*(rate/100))
+				{
+				/*if (Math.random()*100<100*(rate/10) && i%24==0)
+				{
+					var genp="";
+					var genp2="";
+					for (j=0;j<20;j++){
+						genp=gen.charAt(i+j);
+						genp2=gen.charAt(j)
+						gen2=gen2.substr(0,j) + genp + gen2.substr(j+1);
+						gen2=gen2.substr(0,i+j) + genp2 + gen2.substr(i+j+1);
+					}
+				}*/
+				gen2+=(Math.round(Math.random()*15)).toString(16);
+				}
+				else
+				{
+				gen2+=gen.charAt(i);
+			    }
+			}
+			return gen2;
+
+
+		}
+		function run(){
+			genArray[0]=genRnd(10000);
+			runned=window.setInterval(function(){running()}, 50);
+			gra=window.setInterval(function(){graph()}, 500);
+
+			
+		}
+		function graph(){
+				var c=document.getElementById("can3");
+				var ctx=c.getContext("2d");
+				if (grapx>999){
+					grapx=0;
+					ctx.clearRect(0, 0, 1000, 200);
+				}
+				ctx.beginPath();
+					
+					ctx.moveTo(grapx,grapy);
+					ctx.lineTo(grapx+1,200/(difpast/10000000));
+                    ctx.stroke();
+                    ctx.strokeStyle="red";
+                    grapx++;
+                    grapy=200/(difpast/10000000);
+
+
+			}
+		var outcycles=0;
+		function running(){
+			document.getElementById("res").innerHTML= formatString(genArray[0],20);
+			document.getElementById("dife").innerHTML= difpast;
+			var a=mutate(genArray[0],document.getElementById("mut").value);
+			drawGen(a);
+			difnew=compare(document.getElementById("can"),document.getElementById("can2"))
+			if (difnew<difpast){
+			genArray[0]=a;
+			difpast=difnew;
+			}
+			else
+			{
+			outcycles++
+			if(outcycles>100){
+				outcycles=0;
+				document.getElementById("mut").value=document.getElementById("mut").value*0.98
+			}
+			}
+	
+		}
+		function reload(ima){
+			var img = document.getElementById(ima);
+			var ctx = document.getElementById('can2').getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			difpast=100000000000000000000;
+			difnew=100000000000000000000000;
+			genArray[0]=genRnd(parseInt(document.getElementById("long").value));
+
+			}	
+		function formatString(s,space){
+				l=s.length;
+				s2="";
+				for (i=0;i<l;i++){
+				s2+=s.charAt(i);
+				if (i%space==0 && i!=0){
+					s2+="\n";
+				}
+				}
+			return s2;
+		}
+	</script>
+</head>
+<body>
+	<div id="canv">
+		<canvas id="can" width="500"  height ="500"></canvas>
+		<canvas id="can2" width="500"  height ="500"></canvas>
+	</div>
+	<img src="images/img1.jpg" crossorigin='anonymous' id="imgh2"></img>
+	<img src="images/img2.jpg" crossorigin='anonymous' id="imgh"></img>
+	<img src="images/img3.jpg" crossorigin='anonymous' id="imgh3"></img>
+	<img src="images/img4.jpg" crossorigin='anonymous' id="imgh4"></img>
+	<img src="images/img5.jpg" crossorigin='anonymous' id="imgh5"></img>
+	<img src="images/img6.jpg" crossorigin='anonymous' id="imgh6"></img>
+	<img src="images/img7.jpg" crossorigin='anonymous' id="imgh7"></img>
+	<img src="images/img8.jpg" crossorigin='anonymous' id="imgh8"></img>
+	<input type="button" value="img1" onclick="reload('imgh');"/>
+	<input type="button" value="img2" onclick="reload('imgh2');"/>
+	<input type="button" value="img3" onclick="reload('imgh3');"/>
+	<input type="button" value="img4" onclick="reload('imgh4');"/>
+	<input type="button" value="img5" onclick="reload('imgh5');"/>
+	<input type="button" value="img6" onclick="reload('imgh6');"/>
+	<input type="button" value="img7" onclick="reload('imgh7');"/>
+	<input type="button" value="img8" onclick="reload('imgh8');"/><br>
+	Length of DNA:<br>
+	<input type="text" id="long" value="10000"/><br>
+	Mutation rate: (less is better as algorythm progresses, lower it progressively for better results):<br>
+	<input type="range" min="0" max="10" step="0.01" id="mut" default="1"/><br>
+		Total difference><br><p id="dife"></p>
+		<canvas id="can3" width="1000"  height ="200"></canvas>
+		<p id="res"></p>
+	<script type="text/javascript">
+			var img = document.getElementById("imgh");
+			var ctx = document.getElementById('can2').getContext('2d'); // get Canvas contex
+			img.onload = function(){
+			    ctx.drawImage(img, 0, 0); // x, y, width, height
+			    run();
+			}
+
+
+	</script>
+
+	
+</body>
+</html>
